@@ -1,7 +1,8 @@
 /*--------------------------------------//
  * AUTOR: PETR PYSZKO (xpyszk02)*       
  * PROJEKT:
- *  tento komentar jsem udelal v githubu
+ *  - tento komentar jsem udelal v githubu
+ * - a tento na lokalu
  */
  //-------------------------------------//
 
