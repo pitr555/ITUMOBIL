@@ -9,6 +9,8 @@ public class InteligentBorder extends AbstractBorder
 {
   
 
+	
+	private static final long serialVersionUID = 1L;
 	static int part = 0;
 	static int parts = 2;
  

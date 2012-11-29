@@ -1,20 +1,70 @@
+import java.util.ArrayList;
+
 
 public class T9Word extends Word{
 	
-	String t9;
-	String substring;
-	int part;
+	StringBuffer t9 = new StringBuffer();
+	String substring = "";
+	int part = 0;
 	
+	ArrayList<String>  options;
 	
-	void nextChar(char c)
+
+	@Override
+	public int getLength() {
+		return t9.length();
+	}
+
+
+	@Override
+	public
+	void delete(int offset) {
+		// TODO Auto-generated method stub
+
+	}
+
+
+	@Override
+	public boolean insert(int offset, char c) {
+		if (t9.length() != 0)
+		{
+			substring = options.get(part);
+		}
+		
+		t9.insert(offset,c);
+		ArrayList<String> temp = readOptions();
+		
+		if (temp.size() == 0)
+		{
+			return false;
+		}
+		else
+		{
+			options = temp;
+			return true;
+		}
+		
+		
+	}
+	
+	private ArrayList<String> readOptions()
 	{
-		t9 = t9 + c;
+		try {
+			return DatabaseConector.getWords(t9.toString(),substring.toString()); //+ cislo			
+
+		} catch (ClassNotFoundException e) {
+		
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	
-	void deleteLast()
+	public String toString()
 	{
-		t9 = t9.substring(0, t9.length() - 1);
+
+		return options.get(part);
+		
 	}
 
 }

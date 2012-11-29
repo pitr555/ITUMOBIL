@@ -1,25 +1,33 @@
 
 public class NormalWord extends Word {
 	
-	String content = "";
+	private StringBuffer content = new StringBuffer();
 	
 	
-	
-	void nextChar(char c)
+	public boolean insert(int offset,char c)
 	{
-		content = content + c;
+		content.insert(offset,c);
+		return true;
 	}
 	
 	
-	void deleteLast()
+	public void delete(int offset)
 	{
-		content = content.substring(0, content.length() - 1);
+		if (content.length() > 0)
+		{
+			content.deleteCharAt(offset);
+		}
 	}
 	
 	@Override
 	public String toString() {
 	
-		return content;
+		return content.toString();
+	}
+
+
+	public int getLength() {		
+		return content.length();
 	}
 
 }

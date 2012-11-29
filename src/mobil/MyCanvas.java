@@ -12,43 +12,36 @@ import java.awt.Graphics;
 
 public class MyCanvas implements MouseInputListener, KeyListener {
 	static JTextAreaE textArea;
+	static JFrame jf = new JFrame();
+	boolean T9 = false;
+	
     //============================================================= main
     public static void main(String[] args) {
        
     	MyCanvas mc = new MyCanvas();
 
     	textArea = new JTextAreaE();
-    	textArea.setEditable(false);
+
     	
     	textArea.setPreferredSize(new Dimension(300,200));
-    	textArea.setWrapStyleWord(true);
-    	textArea.setLineWrap(true);
     	
-
+    	//textArea.setSelectionStart(5);
+    	//textArea.setSelectionEnd(7);
+       	textArea.addKeyListener(mc);
     	
-    	//textArea.send_key("\n", false);
- 
-    	
-    	
-    	textArea.setSelectionStart(5);
-    	textArea.setSelectionEnd(7);
-    	
-
+    	JButton j = new JButton("Muhehe");
     	JPanel p = new JPanel(true);
     	p.add(textArea);
-    	
-    	
-    	InteligentBorder border = new InteligentBorder();
-    	EmptyBorder margin = new EmptyBorder(10,10,10,10);
-    	textArea.setBorder(new CompoundBorder(border, margin));
+    	p.add(j);
+   
+
 
     	
-    	JFrame jf = new JFrame();
     	jf.getContentPane().add(p);
     	jf.setPreferredSize(new Dimension(400,300));
     	jf.pack();
-    	textArea.addMouseListener(mc);
-    	textArea.addKeyListener(mc);
+    	jf.addMouseListener(mc);
+ 
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jf.setVisible(true);
     }
@@ -56,8 +49,8 @@ public class MyCanvas implements MouseInputListener, KeyListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		//System.out.println("Hi");
-		InteligentBorder.part = (InteligentBorder.part + 1) % InteligentBorder.parts;
-		textArea.repaint();
+		int i = textArea.getCaretPosition();
+		textArea.setCaretPosition(i - 1);
 		
 	}
 
@@ -105,19 +98,46 @@ public class MyCanvas implements MouseInputListener, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		
-		
-		if (e.getKeyCode() == KeyEvent.VK_0)
+	
+		System.out.println(textArea.getCaretPosition());
+		if (e.getKeyCode() == KeyEvent.VK_F1)
 		{
-			textArea.send_key("\\", false);
+			textArea.nextT9Word();
+		}
+		else if (e.getKeyCode() == KeyEvent.VK_LEFT)
+		{
+			textArea.cursor_left();			
+		}		
+		
+		else if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+		{
+			textArea.cursor_right();			
+		}			
+		else if (e.getKeyCode() == KeyEvent.VK_F2)
+		{
+			textArea.send_key("\\b", T9);
+		}
+		else if (e.getKeyCode() == KeyEvent.VK_F3)
+		{
+			if (T9)
+			{
+				T9 = false;
+				System.out.println("T9 vypnute");
+			}
+			else
+			{
+				T9 = true;
+				System.out.println("T9 zapnute");
+			}
 		}
 		else
 		{
 			char c = e.getKeyChar();
-			//System.out.println(c);
-			textArea.send_key(c + "", false);
+			
+			textArea.send_key(c + "", T9);
+			//textArea.setCaretPosition(textArea.getDocument().getLength());
 		}
-		textArea.updateContent();
+
 	}
 
 	@Override
@@ -125,6 +145,8 @@ public class MyCanvas implements MouseInputListener, KeyListener {
 		// TODO Auto-generated method stub
 		
 	}
+
+
 }
 
 

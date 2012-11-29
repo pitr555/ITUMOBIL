@@ -11,6 +11,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+
 /**
  *
  * @author Petr Pyszko (xpyszk02)
@@ -40,6 +41,7 @@ public class GUI extends javax.swing.JFrame {
         initComponents();
         initButtons();
         phoneImg.requestFocus();
+        display.add(new JTextAreaE());
         
     }
     
@@ -87,8 +89,9 @@ public class GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
+        display = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         button_panel = new javax.swing.JPanel();
         b2 = new javax.swing.JButton();
         b3 = new javax.swing.JButton();
@@ -115,7 +118,19 @@ public class GUI extends javax.swing.JFrame {
         setFocusable(false);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 88, -1, 40));
+
+        javax.swing.GroupLayout displayLayout = new javax.swing.GroupLayout(display);
+        display.setLayout(displayLayout);
+        displayLayout.setHorizontalGroup(
+            displayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 310, Short.MAX_VALUE)
+        );
+        displayLayout.setVerticalGroup(
+            displayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 250, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(display, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 310, 250));
 
         jPanel1.setBackground(new Color(0f,0f,0f,0f));
         jPanel1.setFocusable(false);
@@ -144,6 +159,7 @@ public class GUI extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 570, 80, 80));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 88, -1, 40));
 
         button_panel.setBackground(new Color(0,0,0,0));
 
@@ -653,6 +669,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton bsharp;
     private javax.swing.JButton bstar;
     private javax.swing.JPanel button_panel;
+    private javax.swing.JPanel display;
     private javax.swing.JLabel exit_b;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
