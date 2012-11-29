@@ -46,9 +46,7 @@ public class GUI extends javax.swing.JFrame {
       
         display.setLayout(new FlowLayout());
         JTextAreaE ta= new JTextAreaE();
-        ta.setPreferredSize(new Dimension(310,260));
-        ta.send_key("s", false);
-        ta.send_key("b", false);
+        ta.setPreferredSize(new Dimension(310,255));
         s.ta=ta;
         
        ta.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -548,9 +546,17 @@ public class GUI extends javax.swing.JFrame {
         }
         else
         {
-            if(isT9)
+            if(isT9 && cislo != 1) //================== T9
             {
-                s.printChar((char)('0'+cislo),isT9);               
+                if(cislo==0) // stiskl nulu cili mezeru
+                    s.printChar(' ');
+                else if (cislo==10) // hvezda
+                    {      }
+                else if(cislo==12) // # shift
+                   changeShift();   
+                else
+                    s.printChar((char)('0'+cislo),isT9);
+                return;
             }
             
             
@@ -593,9 +599,10 @@ public class GUI extends javax.swing.JFrame {
 
     private void bsKeyPressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bsKeyPressed
         
-        s.printChar('\b',isT9);
-        s.printChar(' ',isT9);
-        s.printChar('\b',isT9);
+          s.ta.nextT9Word();
+//        s.printChar('\b',isT9);
+//        s.printChar(' ',isT9);
+//        s.printChar('\b',isT9);
         
         
     }//GEN-LAST:event_bsKeyPressed
