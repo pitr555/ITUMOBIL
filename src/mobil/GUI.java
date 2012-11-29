@@ -49,6 +49,7 @@ public class GUI extends javax.swing.JFrame {
         ta.setPreferredSize(new Dimension(310,260));
         ta.send_key("s", false);
         ta.send_key("b", false);
+        s.ta=ta;
         
        ta.addKeyListener(new java.awt.event.KeyAdapter() {
            @Override
@@ -140,6 +141,8 @@ public class GUI extends javax.swing.JFrame {
         setFocusable(false);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        display.setBackground(new java.awt.Color(13, 13, 13));
 
         javax.swing.GroupLayout displayLayout = new javax.swing.GroupLayout(display);
         display.setLayout(displayLayout);
@@ -530,18 +533,27 @@ public class GUI extends javax.swing.JFrame {
 
     private void bXMouseRe(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bXMouseRe
         
+                
+         phoneImg.repaint();      
         // sebere cislo
         JButton b=(JButton)evt.getSource();
         JLabel l=(JLabel)b.getAccessibleContext().getAccessibleChild(0);
         int cislo=Integer.valueOf(l.getText().replaceAll(" ", "").replaceAll("\\*", "10").replaceAll("\\#", "12"));
         
+ 
         // podrzel?
         if( (System.currentTimeMillis()) - now > 200)
         {
-                s.printChar((char)('0'+cislo));
+                s.printChar((char)('0'+cislo),false);
         }
         else
         {
+            if(isT9)
+            {
+                s.printChar((char)('0'+cislo),isT9);               
+            }
+            
+            
             if(cislo==0) // stiskl nulu cili mezeru
                 s.printChar(' ');
             
@@ -561,6 +573,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_bXMouseRe
 
     private void b9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b9MousePressed
+        
         now=System.currentTimeMillis();
     }//GEN-LAST:event_b9MousePressed
 
@@ -580,15 +593,18 @@ public class GUI extends javax.swing.JFrame {
 
     private void bsKeyPressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bsKeyPressed
         
-        s.printChar('\b');
-        s.printChar(' ');
-        s.printChar('\b');
+        s.printChar('\b',isT9);
+        s.printChar(' ',isT9);
+        s.printChar('\b',isT9);
         
         
     }//GEN-LAST:event_bsKeyPressed
 
     private void keyPress(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_keyPress
-               
+        
+        
+        
+        phoneImg.repaint();
         if((System.currentTimeMillis()-now) < 10)
             return;
         

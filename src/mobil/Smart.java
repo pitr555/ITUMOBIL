@@ -18,6 +18,7 @@ import java.util.Timer;
  */
 public class Smart {
 
+    public JTextAreaE ta=null;
     int i=0;
     int curKey=0;
     Timer timer=new Timer();
@@ -141,10 +142,22 @@ public class Smart {
     public void printChar(char c)
     {
         if(StaticVars.isShift)
+        {
             System.out.print(Character.toUpperCase(c));
+            ta.send_key(c+"",false);
+        }
         else
-           System.out.print(c);  
+        {
+           System.out.print(c);
+           ta.send_key(c+"",false);
+        }    
     }
+    // tiskne
+    public void printChar(char c,boolean isT9)
+    {
+        ta.send_key(c+"", isT9);
+    }
+    
     
     static int getNumberByKeyCode(int k)
     {
