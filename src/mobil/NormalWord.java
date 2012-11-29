@@ -1,3 +1,4 @@
+package mobil;
 
 public class NormalWord extends Word {
 	

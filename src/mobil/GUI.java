@@ -7,6 +7,8 @@ package mobil;
 import com.sun.awt.AWTUtilities;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -40,8 +42,28 @@ public class GUI extends javax.swing.JFrame {
         AWTUtilities.setWindowShape(GUI.this, StaticVars.getMobilShape());
         initComponents();
         initButtons();
-        phoneImg.requestFocus();
-        display.add(new JTextAreaE());
+        
+      
+        display.setLayout(new FlowLayout());
+        JTextAreaE ta= new JTextAreaE();
+        ta.setPreferredSize(new Dimension(310,260));
+        ta.send_key("s", false);
+        ta.send_key("b", false);
+        
+       ta.addKeyListener(new java.awt.event.KeyAdapter() {
+           @Override
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                keyPress(evt);
+            }
+           @Override
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                keyReles(evt);
+            }
+        });
+        
+        display.add(ta);
+        
+
         
     }
     
@@ -127,10 +149,10 @@ public class GUI extends javax.swing.JFrame {
         );
         displayLayout.setVerticalGroup(
             displayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
+            .addGap(0, 260, Short.MAX_VALUE)
         );
 
-        getContentPane().add(display, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 310, 250));
+        getContentPane().add(display, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 310, 260));
 
         jPanel1.setBackground(new Color(0f,0f,0f,0f));
         jPanel1.setFocusable(false);
@@ -561,6 +583,7 @@ public class GUI extends javax.swing.JFrame {
         s.printChar('\b');
         s.printChar(' ');
         s.printChar('\b');
+        
         
     }//GEN-LAST:event_bsKeyPressed
 

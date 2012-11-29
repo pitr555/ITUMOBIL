@@ -1,3 +1,4 @@
+package mobil;
 
 public abstract class Word {
 	

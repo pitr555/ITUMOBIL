@@ -1,3 +1,4 @@
+package mobil;
  
 import java.awt.*;
 import java.util.ArrayList;
@@ -20,8 +21,8 @@ public class InteligentBorder extends AbstractBorder
     {
  
     	Graphics2D g2 = (Graphics2D) g; 
-    	//g2.setColor(Color.WHITE);
-    	g2.setStroke(new BasicStroke(5.8f));
+    	g2.setColor(Color.RED);
+    	g2.setStroke(new BasicStroke(15.8f));
     	
     	
     	int b_w = w - 1;
