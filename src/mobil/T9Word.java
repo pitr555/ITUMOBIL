@@ -21,8 +21,19 @@ public class T9Word extends Word{
 	@Override
 	public
 	void delete(int offset) {
-		// TODO Auto-generated method stub
+		
+		
+			substring = "";
+			t9.deleteCharAt(offset);
+			options = readOptions();
+			InteligentBorder.part = 0;
+			InteligentBorder.parts = options.size();
+		
 
+	}
+	
+	public void next() {
+		part = (part + 1) % options.size();
 	}
 
 
@@ -35,6 +46,7 @@ public class T9Word extends Word{
 		
 		t9.insert(offset,c);
 		ArrayList<String> temp = readOptions();
+
 		
 		if (temp.size() == 0)
 		{
@@ -43,17 +55,19 @@ public class T9Word extends Word{
 		else
 		{
 			options = temp;
+			part = 0;
+			InteligentBorder.part = part;
+			InteligentBorder.parts = options.size();
 			return true;
-		}
-		
-		
+		}	
 	}
 	
 	private ArrayList<String> readOptions()
 	{
 		try {
-			return DatabaseConector.getWords(t9.toString(),substring.toString()); //+ cislo			
-
+			//return DatabaseConector.getWords(t9.toString(),substring.toString()); //+ cislo			
+			return DatabaseConector.getWords(t9.toString(),"");
+			
 		} catch (ClassNotFoundException e) {
 		
 			e.printStackTrace();

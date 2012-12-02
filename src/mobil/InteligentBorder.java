@@ -6,14 +6,18 @@ import java.util.Collections;
 
 import javax.swing.border.*;
 
+/**
+ * Inteligentne oramovanie displaya
+ * @author R. Pecserke
+ *
+ */
 public class InteligentBorder extends AbstractBorder
 {
-  
 
 	
 	private static final long serialVersionUID = 1L;
-	static int part = 0;
-	static int parts = 2;
+	static int part = 1;
+	static int parts = 1;
  
 
     public void paintBorder(Component c, Graphics g, int x, int y,

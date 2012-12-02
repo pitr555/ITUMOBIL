@@ -101,7 +101,7 @@ public class MyCanvas implements MouseInputListener, KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 	
-		System.out.println(textArea.getCaretPosition());
+
 		if (e.getKeyCode() == KeyEvent.VK_F1)
 		{
 			textArea.nextT9Word();

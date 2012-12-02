@@ -7,7 +7,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-
+/**
+ * Konektor na databazu
+ * @author R. Pecserke
+ *
+ */
 public class DatabaseConector
 {
   public static ArrayList<String> getWords(String t9, String word) throws ClassNotFoundException
