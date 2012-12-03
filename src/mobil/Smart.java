@@ -61,7 +61,7 @@ public class Smart {
         if(StaticVars.isTimeoff() || curKey!=key)
         {        
             i=0;
-            System.out.print(" ");
+            printChar(' ');
             StaticVars.isTimeoff(false);
         }
         printChar('\b');
@@ -141,6 +141,16 @@ public class Smart {
     
     public void printChar(char c)
     {
+        if(c=='\b')
+        {
+            ta.send_key("\\b",false);
+            return;
+        }
+        if (StaticVars.isShift)
+        {
+            c=Character.toUpperCase(c);
+        }
+        
         if(StaticVars.isShift)
         {
             System.out.print(Character.toUpperCase(c));

@@ -540,7 +540,7 @@ public class GUI extends javax.swing.JFrame {
         
  
         // podrzel?
-        if( (System.currentTimeMillis()) - now > 200)
+        if( (System.currentTimeMillis()) - now > 200 && cislo!=1 && cislo<10 )
         {
                 s.printChar((char)('0'+cislo),false);
         }
@@ -551,7 +551,7 @@ public class GUI extends javax.swing.JFrame {
                 if(cislo==0) // stiskl nulu cili mezeru
                     s.printChar(' ');
                 else if (cislo==10) // hvezda
-                    {      }
+                    {  s.ta.nextT9Word();    }
                 else if(cislo==12) // # shift
                    changeShift();   
                 else
@@ -565,7 +565,7 @@ public class GUI extends javax.swing.JFrame {
             
             else if (cislo==10) // hvezda
             { 
-            
+                
             }
             else if(cislo==12) // # shift
             {
@@ -599,12 +599,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void bsKeyPressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bsKeyPressed
         
-          s.ta.nextT9Word();
-//        s.printChar('\b',isT9);
-//        s.printChar(' ',isT9);
-//        s.printChar('\b',isT9);
-        
-        
+        s.printChar('\b');        
     }//GEN-LAST:event_bsKeyPressed
 
     private void keyPress(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_keyPress
@@ -653,7 +648,7 @@ public class GUI extends javax.swing.JFrame {
             
             else if (num==10)
             { 
-            
+                s.ta.nextT9Word();
             }
             else if(num==12)
                 changeShift(); 
