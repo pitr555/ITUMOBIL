@@ -3,10 +3,14 @@ package mobil;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JEditorPane;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
 
 public class JTextAreaE extends JEditorPane implements FocusListener {
 
@@ -31,18 +35,30 @@ public class JTextAreaE extends JEditorPane implements FocusListener {
 
 	}
 
+        /*
+         * just shit
+         */
 	public void cursor_left() {
-		System.out.println("offset " + offset);
-		if (offset > 1)
-			offset--;
-		else if (offset == 1) {
-			if (actualNum > 0) {
-				actualNum--;
-				actual = words.get(actualNum);
-				offset = actual.getLength();
-			}
-		}
-		updateContent();
+                     
+             // just shit
+               setCaretPosition(getCaretPosition()-1);
+                      
+               int pos=0;
+               int cpos=getCaretPosition(); 
+              
+               for(int i=0;i<actualNum;i++)
+               {
+                   pos+=words.get(i).getLength();
+                   
+                   if(pos>cpos)
+                   {
+                       actual=words.get(i);
+                       actualNum=i;
+                       offset=pos-cpos;
+                       return;
+                   }
+               }
+               
 	}
 
 	public void cursor_right() {
@@ -69,41 +85,137 @@ public class JTextAreaE extends JEditorPane implements FocusListener {
 				% InteligentBorder.parts;
 		repaint();
 	}
+        
+        public void preT9Word() {
+		if (actual instanceof T9Word) {
+			T9Word w = (T9Word) actual;
+			w.pre();
+			updateContent();
+		}
+
+		InteligentBorder.part = (InteligentBorder.part - 1)
+				% InteligentBorder.parts;
+                
+                if(InteligentBorder.part==-1)
+                {
+                    InteligentBorder.part=InteligentBorder.parts-1;
+                }
+                
+		repaint();
+	}
 
 	public void send_key(String key, boolean T9) {
 
 		// mazanie
 		if (key.charAt(0) == '\\') {
 			if (key.charAt(1) == 'b') {
-				if (actual != null) {
+                        try {                            
+                            
+                            System.out.println("-"+getDocument().getText(getCaretPosition()-1,1)+"-");
+                            char xxx=getDocument().getText(getCaretPosition()-1,1).charAt(0);
+                            
+                            if( xxx==160) // non breaking space shit
+                            {
+                                offset--;
+                                actual.delete(offset);
+                                offset--;
+                                actual.delete(offset);
+                                offset--;
+                                actual.delete(offset);
+                                offset--;
+                                actual.delete(offset);
+                                offset--;
+                                actual.delete(offset);
+                                 offset--;
+                                actual.delete(offset);
 
-					if (actual.getLength() > 1) // slovo obsahuje nejake pismena
-					{
-						if (offset > 0) {
-							offset--;
-							actual.delete(offset);
-						}
+                                   
+                                if(T9) 
+                                {
+                                words.remove(actualNum); // mazanie prazdneho slova ho
+                                                                                                        // odstrani z fronty
+                                                actualNum = words.size() - 1;
 
-					} else {
-						words.remove(actualNum); // mazanie prazdneho slova ho
-													// odstrani z fronty
-						actualNum = words.size() - 1;
+                                                if (actualNum >= 0) {
+                                                        actual = words.get(actualNum);
+                                                        offset = actual.getLength();
+                                                } else {
+                                                        actual = null;
+                                                        offset = -1;
+                                                }
+                                }
+                                updateContent();
+                                return;
+                            }
+                         
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                                if (actual != null) {
 
-						if (actualNum >= 0) {
-							actual = words.get(actualNum);
-							offset = actual.getLength();
-						} else {
-							actual = null;
-							offset = -1;
-						}
-					}
-				}
+                                        if (actual.getLength() > 1) // slovo obsahuje nejake pismena
+                                        {
+                                                if (offset > 0) {
+                                                        offset--;
+                                                        actual.delete(offset);
+                                                }
+
+                                        } else {
+                                                words.remove(actualNum); // mazanie prazdneho slova ho
+                                                                                                        // odstrani z fronty
+                                                actualNum = words.size() - 1;
+
+                                                if (actualNum >= 0) {
+                                                        actual = words.get(actualNum);
+                                                        offset = actual.getLength();
+                                                } else {
+                                                        actual = null;
+                                                        offset = -1;
+                                                }
+                                        }
+                                }
+                        } catch (BadLocationException ex) {
+                            //Logger.getLogger(JTextAreaE.class.getName()).log(Level.SEVERE, null, ex);
+                        }
 			}
 		}
 
 		else {
+                               if(key.equals(" "))
+                                {
+                                    if(T9 || words.size() == 0 || actual instanceof T9Word)
+                                    {
+                                        words.add(new NormalWord());
+					actualNum = words.size() - 1;
+					actual = words.get(actualNum);
+					offset = 0;
+                                    }
+                                    actual.insert(offset, '&');
+                                    offset++;
+                                    actual.insert(offset, 'n');
+                                    offset++;
+                                    actual.insert(offset, 'b');
+                                    offset++;
+                                    actual.insert(offset, 's');
+                                    offset++;
+                                    actual.insert(offset, 'p');
+                                    offset++;
+                                    actual.insert(offset, ';'); 
+                                    offset++;
+                                    updateContent();
+                                    System.out.println(getText());
+                                    return;
+                                }
+                    
 			if (T9) {
-				if (words.size() == 0 || actual instanceof NormalWord) {
+				
+                            
+                                if (words.size() == 0 || actual instanceof NormalWord) {
 					words.add(new T9Word());
 					actualNum = words.size() - 1;
 					actual = words.get(actualNum);
@@ -121,10 +233,11 @@ public class JTextAreaE extends JEditorPane implements FocusListener {
 					offset = 0;
 					actual.insert(offset, key.charAt(0));
 				}
+                                
 			}
 
 			else {
-				if (words.size() == 0 || actual instanceof T9Word) {
+                              if (words.size() == 0 || actual instanceof T9Word) {
 					words.add(new NormalWord());
 					actualNum = words.size() - 1;
 					actual = words.get(actualNum);

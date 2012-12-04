@@ -61,7 +61,7 @@ public class Smart {
         if(StaticVars.isTimeoff() || curKey!=key)
         {        
             i=0;
-            printChar(' ');
+            printChar('x');
             StaticVars.isTimeoff(false);
         }
         printChar('\b');
@@ -70,7 +70,7 @@ public class Smart {
                 
         timer.cancel();
         timer=new Timer(); 
-        timer.schedule(new Timeout(), 300);
+        timer.schedule(new Timeout(), 350);
         curKey=key;
     
     }
@@ -153,12 +153,12 @@ public class Smart {
         
         if(StaticVars.isShift)
         {
-            System.out.print(Character.toUpperCase(c));
+            //System.out.print(Character.toUpperCase(c));
             ta.send_key(c+"",false);
         }
         else
         {
-           System.out.print(c);
+           //System.out.print(c);
            ta.send_key(c+"",false);
         }    
     }
@@ -193,9 +193,11 @@ public class Smart {
         if(k==KeyEvent.VK_CONTROL)
             return 10;
         if(k==KeyEvent.VK_SPACE)
-            return 11;
+            return 0;
         if(k==KeyEvent.VK_SHIFT)
-            return 12;       
+            return 12;     
+        if(k==KeyEvent.VK_BACK_SPACE)
+            return 666;   
         
        return -1;
     }

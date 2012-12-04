@@ -25,7 +25,7 @@ public class DatabaseConector
     try
     {
       // vytvori sa pripojenie na db
-      connection = DriverManager.getConnection("jdbc:sqlite:t9.db");
+      connection = DriverManager.getConnection("jdbc:sqlite:t9cz.db");
       Statement statement = connection.createStatement();
       statement.setQueryTimeout(30);  
       

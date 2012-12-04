@@ -140,7 +140,9 @@ public class GUI extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        display.setBackground(new java.awt.Color(13, 13, 13));
+        display.setBackground(new java.awt.Color(71, 0, 0));
+        display.setAlignmentX(0.0F);
+        display.setAlignmentY(0.0F);
 
         javax.swing.GroupLayout displayLayout = new javax.swing.GroupLayout(display);
         display.setLayout(displayLayout);
@@ -355,9 +357,19 @@ public class GUI extends javax.swing.JFrame {
 
         left.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mobil/left_arrow.png"))); // NOI18N
         left.setFocusable(false);
+        left.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                left(evt);
+            }
+        });
 
         right.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mobil/right_arrow.png"))); // NOI18N
         right.setFocusable(false);
+        right.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                right(evt);
+            }
+        });
 
         javax.swing.GroupLayout button_panelLayout = new javax.swing.GroupLayout(button_panel);
         button_panel.setLayout(button_panelLayout);
@@ -493,11 +505,13 @@ public class GUI extends javax.swing.JFrame {
           if(button_panel.isVisible())
           {
               button_panel.setVisible(false);
+              display.setVisible(false);
               phoneImg.repaint();   
           }
           else
           {
               button_panel.setVisible(true);
+              display.setVisible(true);
           }
     }//GEN-LAST:event_exit_click
 
@@ -531,7 +545,12 @@ public class GUI extends javax.swing.JFrame {
 
     private void bXMouseRe(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bXMouseRe
         
-                
+           
+        //System.out.println(s.ta.getText()+"\n" );
+       
+        
+       // s.ta.setCaretPosition(s.ta.getCaretPosition());
+      
          phoneImg.repaint();      
         // sebere cislo
         JButton b=(JButton)evt.getSource();
@@ -540,7 +559,7 @@ public class GUI extends javax.swing.JFrame {
         
  
         // podrzel?
-        if( (System.currentTimeMillis()) - now > 200 && cislo!=1 && cislo<10 )
+        if( (System.currentTimeMillis()) - now > 300 && cislo!=1 && cislo<10 )
         {
                 s.printChar((char)('0'+cislo),false);
         }
@@ -549,7 +568,7 @@ public class GUI extends javax.swing.JFrame {
             if(isT9 && cislo != 1) //================== T9
             {
                 if(cislo==0) // stiskl nulu cili mezeru
-                    s.printChar(' ');
+                    s.printChar(' ',isT9);
                 else if (cislo==10) // hvezda
                     {  s.ta.nextT9Word();    }
                 else if(cislo==12) // # shift
@@ -565,7 +584,7 @@ public class GUI extends javax.swing.JFrame {
             
             else if (cislo==10) // hvezda
             { 
-                
+                s.ta.nextT9Word();
             }
             else if(cislo==12) // # shift
             {
@@ -576,6 +595,8 @@ public class GUI extends javax.swing.JFrame {
                 s.newKey(Integer.valueOf(l.getText().replaceAll(" ", "")));
 
         }
+         //System.out.println("pos:"+s.ta.getDocument().getText(1, i) );
+  
     }//GEN-LAST:event_bXMouseRe
 
     private void b9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b9MousePressed
@@ -621,11 +642,19 @@ public class GUI extends javax.swing.JFrame {
         
        //System.out.println("--rel--");
        autorepeat++;
+       
      
         int num=Smart.getNumberByKeyCode( evt.getKeyCode()); 
-      
+        int cislo=num;
        if(num<0) // nebudem zpracovavat
            return;
+       
+       if(num==666) //mazani
+       {
+           s.ta.updateContent();
+           s.ta.send_key("\\b", isT9);
+           return;
+       }
        
        if(autorepeat>1)
        {
@@ -635,29 +664,55 @@ public class GUI extends javax.swing.JFrame {
        }
        
        // podrzel?
-        if((System.currentTimeMillis()-now) > 300)
+              // podrzel?
+        if( (System.currentTimeMillis()) - now > 300 && cislo!=1 && cislo<10 )
         {
-                s.printChar((char)('0'+num));
-                
+                s.printChar((char)('0'+cislo),false);
         }
         else
         {
+            if(isT9 && cislo != 1) //================== T9
+            {
+                if(cislo==0) // stiskl nulu cili mezeru
+                { 
+                    s.printChar(' ',isT9);}
+                else if (cislo==10) // hvezda
+                    {  s.ta.nextT9Word();    }
+                else if(cislo==12) // # shift
+                   changeShift();   
+                else
+                    s.printChar((char)('0'+cislo),isT9);
+                return;
+            }
             
-            if(num==0) // stiskl nulu cili mezeru
+            
+            if(cislo==0) // stiskl nulu cili mezeru
                 s.printChar(' ');
             
-            else if (num==10)
+            else if (cislo==10) // hvezda
             { 
                 s.ta.nextT9Word();
             }
-            else if(num==12)
-                changeShift(); 
+            else if(cislo==12) // # shift
+            {
+               changeShift();   
+               
+            }
             else
-                s.newKey(num);
+                s.newKey(cislo);
+
         }
         now=System.currentTimeMillis();
     
     }//GEN-LAST:event_keyReles
+
+    private void left(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_left
+       s.ta.preT9Word();
+    }//GEN-LAST:event_left
+
+    private void right(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_right
+        s.ta.nextT9Word();
+    }//GEN-LAST:event_right
 
     /**
      * @param args the command line arguments

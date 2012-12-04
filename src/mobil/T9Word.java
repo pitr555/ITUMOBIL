@@ -8,7 +8,8 @@ public class T9Word extends Word{
 	StringBuffer t9 = new StringBuffer();
 	String substring = "";
 	int part = 0;
-	
+	boolean isShift=StaticVars.isShift;
+        
 	ArrayList<String>  options;
 	
 
@@ -35,6 +36,13 @@ public class T9Word extends Word{
 	public void next() {
 		part = (part + 1) % options.size();
 	}
+        public void pre() {
+		part = (part -1) % options.size();
+                if(part==-1)
+                {
+                    part=options.size()-1;
+                }
+	}
 
 
 	@Override
@@ -47,6 +55,18 @@ public class T9Word extends Word{
 		t9.insert(offset,c);
 		ArrayList<String> temp = readOptions();
 
+                
+                if(isShift)
+                {
+                    ArrayList<String> temp2=new ArrayList<String>();
+                    for (int i=0;i<temp.size();i++)
+                    {
+                       String s=temp.get(i);
+                       s=s.substring(0,1).toUpperCase()+s.substring(1);
+                       temp2.add(s);
+                    }
+                    temp=temp2;
+                }
 		
 		if (temp.size() == 0)
 		{
@@ -77,8 +97,7 @@ public class T9Word extends Word{
 	
 	
 	public String toString()
-	{
-
+	{                    
 		return options.get(part);
 		
 	}
