@@ -1,5 +1,6 @@
 package mobil;
 
+import java.awt.Font;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.ArrayList;
@@ -27,9 +28,11 @@ public class JTextAreaE extends JEditorPane implements FocusListener {
 		setKeymap(null); // vypne povodneho KeyListenera
 		InteligentBorder border = new InteligentBorder(); // inteligentne
 															// oramaovanie
-		EmptyBorder margin = new EmptyBorder(10, 10, 10, 10);
+		EmptyBorder margin = new EmptyBorder(17, 17, 17, 17);
 		setBorder(new CompoundBorder(border, margin));
-
+                this.setFont(new Font("Verdana", Font.PLAIN, 14));
+                
+                
 		// zabezpeci ze this bude mat vzdy focus
 		addFocusListener(this); // nastavi FucusListenera na seba
 
@@ -111,10 +114,10 @@ public class JTextAreaE extends JEditorPane implements FocusListener {
 			if (key.charAt(1) == 'b') {
                         try {                            
                             
-                            System.out.println("-"+getDocument().getText(getCaretPosition()-1,1)+"-");
+                            //System.out.println("-"+getDocument().getText(getCaretPosition()-1,1)+"-");
                             char xxx=getDocument().getText(getCaretPosition()-1,1).charAt(0);
                             
-                            if( xxx==160) // non breaking space shit
+                            if( xxx==8194) //space shit
                             {
                                 offset--;
                                 actual.delete(offset);
@@ -127,6 +130,8 @@ public class JTextAreaE extends JEditorPane implements FocusListener {
                                 offset--;
                                 actual.delete(offset);
                                  offset--;
+                                actual.delete(offset);
+                                offset--;
                                 actual.delete(offset);
 
                                    
@@ -185,7 +190,7 @@ public class JTextAreaE extends JEditorPane implements FocusListener {
 			}
 		}
 
-		else {
+		else {         /// ===================== FUCKING SPACE
                                if(key.equals(" "))
                                 {
                                     if(T9 || words.size() == 0 || actual instanceof T9Word)
@@ -197,18 +202,20 @@ public class JTextAreaE extends JEditorPane implements FocusListener {
                                     }
                                     actual.insert(offset, '&');
                                     offset++;
-                                    actual.insert(offset, 'n');
+                                    actual.insert(offset, '#');
                                     offset++;
-                                    actual.insert(offset, 'b');
+                                    actual.insert(offset, '8');
                                     offset++;
-                                    actual.insert(offset, 's');
+                                    actual.insert(offset, '1');
                                     offset++;
-                                    actual.insert(offset, 'p');
+                                    actual.insert(offset, '9');
+                                    offset++;
+                                    actual.insert(offset, '4'); 
                                     offset++;
                                     actual.insert(offset, ';'); 
                                     offset++;
                                     updateContent();
-                                    System.out.println(getText());
+                                    //System.out.println(getText());
                                     return;
                                 }
                     

@@ -25,8 +25,8 @@ public class InteligentBorder extends AbstractBorder
     {
  
     	Graphics2D g2 = (Graphics2D) g; 
-    	g2.setColor(Color.RED);
-    	g2.setStroke(new BasicStroke(15.8f));
+    	g2.setColor(new Color(190,60,50));
+    	g2.setStroke(new BasicStroke(22.0f));
     	
     	
     	int b_w = w - 1;

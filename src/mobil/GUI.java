@@ -140,7 +140,7 @@ public class GUI extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        display.setBackground(new java.awt.Color(71, 0, 0));
+        display.setBackground(new java.awt.Color(64, 64, 64));
         display.setAlignmentX(0.0F);
         display.setAlignmentY(0.0F);
 
@@ -158,6 +158,7 @@ public class GUI extends javax.swing.JFrame {
         getContentPane().add(display, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 310, 260));
 
         jPanel1.setBackground(new Color(0f,0f,0f,0f));
+        jPanel1.setForeground(new java.awt.Color(107, 21, 20));
         jPanel1.setFocusable(false);
         jPanel1.setRequestFocusEnabled(false);
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -473,12 +474,12 @@ public class GUI extends javax.swing.JFrame {
         move_panelLayout.setVerticalGroup(
             move_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, move_panelLayout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
+                .addContainerGap(38, Short.MAX_VALUE)
                 .addComponent(exit_b, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        getContentPane().add(move_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 80));
+        getContentPane().add(move_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 90));
 
         phoneImg.setBackground(new java.awt.Color(1, 1, 1));
         phoneImg.setFont(phoneImg.getFont().deriveFont((float)18));
